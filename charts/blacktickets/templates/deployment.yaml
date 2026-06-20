@@ -3,32 +3,62 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ kebabcase $name }}
-  namespace: {{ $.Values.namespace }}
+  name: {{ $name }}
+  namespace: {{ $.Values.namespace | quote }}
   labels:
-    app.kubernetes.io/name: {{ kebabcase $name }}
-    app.kubernetes.io/part-of: blacktickets
+    {{- include "blacktickets.serviceLabels" (dict "root" $ "name" $name) | nindent 4 }}
 spec:
-  replicas: {{ $.Values.replicaCount }}
+  replicas: {{ $svc.replicas }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ kebabcase $name }}
+      app.kubernetes.io/name: {{ $name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ kebabcase $name }}
+        app.kubernetes.io/name: {{ $name }}
         app.kubernetes.io/part-of: blacktickets
     spec:
-      serviceAccountName: blacktickets-service-account
+      serviceAccountName: {{ $name }}
+      automountServiceAccountToken: true
       containers:
-        - name: {{ kebabcase $name }}
-          image: "{{ $.Values.imageRegistry }}/{{ $svc.image }}:{{ $.Values.imageTag }}"
-          imagePullPolicy: IfNotPresent
+        - name: {{ $name }}
+          image: "{{ $.Values.image.registry }}/{{ $svc.repository }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ $svc.port }}
+            - name: http
+              containerPort: {{ $svc.port }}
           envFrom:
             - configMapRef:
                 name: blacktickets-config
+            {{- if $.Values.externalSecrets.enabled }}
             - secretRef:
-                name: blacktickets-secrets
+                name: {{ $.Values.secrets.name }}
+            {{- end }}
+          {{- with $svc.env }}
+          env:
+            {{- range $key, $value := . }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- end }}
+          readinessProbe:
+            httpGet:
+              path: {{ $svc.probes.readiness.path | quote }}
+              port: http
+            initialDelaySeconds: {{ $svc.probes.readiness.initialDelaySeconds }}
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: {{ $svc.probes.liveness.path | quote }}
+              port: http
+            initialDelaySeconds: {{ $svc.probes.liveness.initialDelaySeconds }}
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            {{- toYaml $svc.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml $svc.securityContext | nindent 12 }}
 {{- end }}

@@ -3,17 +3,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ kebabcase $name }}
-  namespace: {{ $.Values.namespace }}
+  name: {{ $name }}
+  namespace: {{ $.Values.namespace | quote }}
   labels:
-    app.kubernetes.io/name: {{ kebabcase $name }}
-    app.kubernetes.io/part-of: blacktickets
+    {{- include "blacktickets.serviceLabels" (dict "root" $ "name" $name) | nindent 4 }}
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/name: {{ kebabcase $name }}
+    app.kubernetes.io/name: {{ $name }}
   ports:
     - name: http
       port: {{ $svc.port }}
-      targetPort: {{ $svc.port }}
+      targetPort: http
 {{- end }}

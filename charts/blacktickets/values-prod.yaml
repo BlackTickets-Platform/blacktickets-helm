@@ -1,32 +1,178 @@
 namespace: blacktickets-prod
 
-imageRegistry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
-imageTag: prod
-
-replicaCount: 2
-
-services:
-  frontend:
-    image: blacktickets-frontend
-    port: 80
-  identityService:
-    image: blacktickets-identity-service
-    port: 4001
-  eventService:
-    image: blacktickets-event-service
-    port: 4002
-  bookingService:
-    image: blacktickets-booking-service
-    port: 4003
-  chatbotService:
-    image: blacktickets-chatbot-service
-    port: 4004
+image:
+  registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
+  tag: prod
+  pullPolicy: IfNotPresent
 
 config:
   awsRegion: us-east-1
+  dbHost: blacktickets-prod-postgres.cluster.local
+  dbPort: "5432"
+  dbUser: postgres
+  dbSsl: "true"
+  posterBucketName: blacktickets-prod-posters
+  posterCdnDomain: ""
+  eventServiceUrl: http://event-service:4002
+  bookingServiceUrl: http://booking-service:4003
+  bookingNotificationQueueUrl: ""
 
-secrets: {}
+secrets:
+  name: blacktickets-secrets
+  create: false
 
-ingress:
+externalSecrets:
   enabled: false
+  secretStoreName: aws-secrets-manager
+  secretStoreKind: ClusterSecretStore
+  remoteSecretName: blacktickets/app-config
+  refreshInterval: 1h
+ingress:
+  enabled: true
+  className: alb
   host: blacktickets.example.com
+  scheme: internet-facing
+  targetType: ip
+  listenPorts: '[{"HTTP":80}]'
+  healthcheckPath: /
+  annotations: {}
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+
+services:
+  frontend:
+    repository: blacktickets-frontend
+    port: 80
+    replicas: 2
+    serviceAccount:
+      annotations: {}
+    env: {}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+    probes:
+      readiness:
+        path: /
+        initialDelaySeconds: 10
+      liveness:
+        path: /
+        initialDelaySeconds: 30
+    securityContext:
+      runAsNonRoot: false
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
+  identity-service:
+    repository: blacktickets-identity-service
+    port: 4001
+    replicas: 2
+    serviceAccount:
+      annotations: {}
+    env:
+      DB_NAME: identity_db
+    resources:
+      requests:
+        cpu: 150m
+        memory: 192Mi
+      limits:
+        cpu: 750m
+        memory: 384Mi
+    probes:
+      readiness:
+        path: /health
+        initialDelaySeconds: 10
+      liveness:
+        path: /health
+        initialDelaySeconds: 30
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
+  event-service:
+    repository: blacktickets-event-service
+    port: 4002
+    replicas: 2
+    serviceAccount:
+      annotations: {}
+    env:
+      DB_NAME: event_db
+    resources:
+      requests:
+        cpu: 150m
+        memory: 192Mi
+      limits:
+        cpu: 750m
+        memory: 384Mi
+    probes:
+      readiness:
+        path: /health
+        initialDelaySeconds: 10
+      liveness:
+        path: /health
+        initialDelaySeconds: 30
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
+  booking-service:
+    repository: blacktickets-booking-service
+    port: 4003
+    replicas: 2
+    serviceAccount:
+      annotations: {}
+    env:
+      DB_NAME: booking_db
+    resources:
+      requests:
+        cpu: 150m
+        memory: 192Mi
+      limits:
+        cpu: 750m
+        memory: 384Mi
+    probes:
+      readiness:
+        path: /health
+        initialDelaySeconds: 10
+      liveness:
+        path: /health
+        initialDelaySeconds: 30
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
+  chatbot-service:
+    repository: blacktickets-chatbot-service
+    port: 4004
+    replicas: 2
+    serviceAccount:
+      annotations: {}
+    env: {}
+    resources:
+      requests:
+        cpu: 150m
+        memory: 192Mi
+      limits:
+        cpu: 750m
+        memory: 384Mi
+    probes:
+      readiness:
+        path: /health
+        initialDelaySeconds: 10
+      liveness:
+        path: /health
+        initialDelaySeconds: 30
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
