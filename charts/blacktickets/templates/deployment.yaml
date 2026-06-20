@@ -1,0 +1,34 @@
+{{- range $name, $svc := .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ kebabcase $name }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ kebabcase $name }}
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  replicas: {{ $.Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ kebabcase $name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ kebabcase $name }}
+        app.kubernetes.io/part-of: blacktickets
+    spec:
+      serviceAccountName: blacktickets-service-account
+      containers:
+        - name: {{ kebabcase $name }}
+          image: "{{ $.Values.imageRegistry }}/{{ $svc.image }}:{{ $.Values.imageTag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ $svc.port }}
+          envFrom:
+            - configMapRef:
+                name: blacktickets-config
+            - secretRef:
+                name: blacktickets-secrets
+{{- end }}

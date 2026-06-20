@@ -1,0 +1,19 @@
+{{- range $name, $svc := .Values.services }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ kebabcase $name }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ kebabcase $name }}
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: {{ kebabcase $name }}
+  ports:
+    - name: http
+      port: {{ $svc.port }}
+      targetPort: {{ $svc.port }}
+{{- end }}

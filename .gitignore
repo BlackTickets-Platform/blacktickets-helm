@@ -1,0 +1,8 @@
+.env
+.env.*
+*.log
+.DS_Store
+.vscode/
+charts/**/charts/
+charts/**/tmpcharts/
+*.tgz

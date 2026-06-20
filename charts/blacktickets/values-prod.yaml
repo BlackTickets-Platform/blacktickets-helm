@@ -1,0 +1,32 @@
+namespace: blacktickets-prod
+
+imageRegistry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
+imageTag: prod
+
+replicaCount: 2
+
+services:
+  frontend:
+    image: blacktickets-frontend
+    port: 80
+  identityService:
+    image: blacktickets-identity-service
+    port: 4001
+  eventService:
+    image: blacktickets-event-service
+    port: 4002
+  bookingService:
+    image: blacktickets-booking-service
+    port: 4003
+  chatbotService:
+    image: blacktickets-chatbot-service
+    port: 4004
+
+config:
+  awsRegion: us-east-1
+
+secrets: {}
+
+ingress:
+  enabled: false
+  host: blacktickets.example.com
