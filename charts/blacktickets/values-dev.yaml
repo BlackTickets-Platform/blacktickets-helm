@@ -7,7 +7,7 @@ image:
 
 config:
   awsRegion: us-east-1
-  dbHost: blacktickets-dev-postgres.cluster.local
+  dbHost: blacktickets-dev-postgres.cqpkso2i290v.us-east-1.rds.amazonaws.com
   dbPort: "5432"
   dbUser: postgres
   dbSsl: "true"
