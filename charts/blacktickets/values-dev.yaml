@@ -12,7 +12,7 @@ config:
   dbUser: postgres
   dbSsl: "true"
   posterBucketName: blacktickets-dev-posters
-  posterCdnDomain: ""
+  posterCdnDomain: d3me96rgp01al.cloudfront.net
   eventServiceUrl: http://event-service:4002
   bookingServiceUrl: http://booking-service:4003
   bookingNotificationQueueUrl: ""
