@@ -18,15 +18,18 @@ config:
   bookingNotificationQueueUrl: ""
 
 secrets:
-  name: blacktickets-secrets
+  name: blacktickets-app-secrets
   create: false
 
 externalSecrets:
-  enabled: false
-  secretStoreName: aws-secrets-manager
+  enabled: true
+  createSecretStore: true
+  secretStoreName: aws-secretsmanager
   secretStoreKind: ClusterSecretStore
-  remoteSecretName: blacktickets/app-config
+  remoteSecretName: blacktickets-dev/app-config
   refreshInterval: 1h
+  serviceAccountName: external-secrets
+  serviceAccountNamespace: external-secrets
 
 gateway:
   enabled: true

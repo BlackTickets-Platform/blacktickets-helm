@@ -23,10 +23,13 @@ secrets:
 
 externalSecrets:
   enabled: false
+  createSecretStore: false
   secretStoreName: aws-secrets-manager
   secretStoreKind: ClusterSecretStore
   remoteSecretName: blacktickets/app-config
   refreshInterval: 1h
+  serviceAccountName: external-secrets
+  serviceAccountNamespace: external-secrets
 
 gateway:
   enabled: true
