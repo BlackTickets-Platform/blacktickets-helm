@@ -27,14 +27,13 @@ externalSecrets:
   secretStoreKind: ClusterSecretStore
   remoteSecretName: blacktickets/app-config
   refreshInterval: 1h
-ingress:
+
+gateway:
   enabled: true
+  createClass: false
   className: alb
-  host: blacktickets.example.com
+  hostname: ""
   scheme: internet-facing
-  targetType: ip
-  listenPorts: '[{"HTTP":80}]'
-  healthcheckPath: /
   annotations: {}
 
 hpa:
