@@ -3,7 +3,7 @@ namespace: blacktickets-dev
 image:
   registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
   tag: dev
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 config:
   awsRegion: us-east-1
@@ -78,7 +78,7 @@ services:
     serviceAccount:
       annotations: {}
     env:
-      DB_NAME: identity_db
+      DB_NAME: blacktickets
     resources:
       requests:
         cpu: 100m
@@ -103,9 +103,10 @@ services:
     port: 4002
     replicas: 1
     serviceAccount:
-      annotations: {}
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-event-service-irsa
     env:
-      DB_NAME: event_db
+      DB_NAME: blacktickets
     resources:
       requests:
         cpu: 100m
@@ -130,9 +131,10 @@ services:
     port: 4003
     replicas: 1
     serviceAccount:
-      annotations: {}
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-booking-service-irsa
     env:
-      DB_NAME: booking_db
+      DB_NAME: blacktickets
     resources:
       requests:
         cpu: 100m
@@ -157,7 +159,8 @@ services:
     port: 4004
     replicas: 1
     serviceAccount:
-      annotations: {}
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-chatbot-service-irsa
     env: {}
     resources:
       requests:

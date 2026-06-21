@@ -11,6 +11,17 @@ spec:
 ---
 {{- end }}
 apiVersion: gateway.k8s.aws/v1beta1
+kind: TargetGroupConfiguration
+metadata:
+  name: blacktickets
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    {{- include "blacktickets.labels" . | nindent 4 }}
+spec:
+  defaultConfiguration:
+    targetType: ip
+---
+apiVersion: gateway.k8s.aws/v1beta1
 kind: LoadBalancerConfiguration
 metadata:
   name: blacktickets
@@ -19,6 +30,8 @@ metadata:
     {{- include "blacktickets.labels" . | nindent 4 }}
 spec:
   scheme: {{ .Values.gateway.scheme | quote }}
+  defaultTargetGroupConfiguration:
+    name: blacktickets
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
