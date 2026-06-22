@@ -158,7 +158,7 @@ services:
       readOnlyRootFilesystem: false
   chatbot-service:
     repository: blacktickets-chatbot-service
-    tag: prod
+    tag: v0.0.1
     port: 4004
     replicas: 2
     serviceAccount:
