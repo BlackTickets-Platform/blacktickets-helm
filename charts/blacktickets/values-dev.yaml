@@ -169,8 +169,7 @@ services:
     replicas: 2
     serviceAccount:
       roleName: chatbot-service-irsa
-    env:
-      BEDROCK_ROLE_ARN: "arn:aws:iam::091869721157:role/blacktickets-old-account-bedrock-access"
+    env: {}
     resources:
       requests:
         cpu: 100m
