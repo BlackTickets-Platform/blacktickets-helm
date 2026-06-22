@@ -2,7 +2,7 @@ namespace: blacktickets-dev
 
 image:
   registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
-  tag: prod
+  tag: dev
   pullPolicy: Always
 
 config:
@@ -52,6 +52,7 @@ service:
 services:
   frontend:
     repository: blacktickets-frontend
+    tag: dev
     port: 80
     replicas: 2
     serviceAccount:
@@ -77,6 +78,7 @@ services:
       readOnlyRootFilesystem: false
   identity-service:
     repository: blacktickets-identity-service
+    tag: dev
     port: 4001
     replicas: 2
     serviceAccount:
@@ -104,6 +106,7 @@ services:
       readOnlyRootFilesystem: false
   event-service:
     repository: blacktickets-event-service
+    tag: dev
     port: 4002
     replicas: 2
     serviceAccount:
@@ -132,6 +135,7 @@ services:
       readOnlyRootFilesystem: false
   booking-service:
     repository: blacktickets-booking-service
+    tag: dev
     port: 4003
     replicas: 2
     serviceAccount:
@@ -160,6 +164,7 @@ services:
       readOnlyRootFilesystem: false
   chatbot-service:
     repository: blacktickets-chatbot-service
+    tag: dev
     port: 4004
     replicas: 2
     serviceAccount:
