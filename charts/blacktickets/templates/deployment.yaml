@@ -22,7 +22,7 @@ spec:
       automountServiceAccountToken: true
       containers:
         - name: {{ $name }}
-          image: "{{ $.Values.image.registry }}/{{ $svc.repository }}:{{ $.Values.image.tag }}"
+          image: "{{ $.Values.image.registry }}/{{ $svc.repository }}:{{ $svc.tag | default $.Values.image.tag }}"
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           ports:
             - name: http

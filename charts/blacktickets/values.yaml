@@ -1,11 +1,13 @@
 namespace: blacktickets-dev
 
 image:
-  registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
+  registry: AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com
   tag: dev
   pullPolicy: IfNotPresent
 
 config:
+  awsAccountId: ""
+  roleNamePrefix: ""
   awsRegion: us-east-1
   dbHost: blacktickets-dev-postgres.cluster.local
   dbPort: "5432"

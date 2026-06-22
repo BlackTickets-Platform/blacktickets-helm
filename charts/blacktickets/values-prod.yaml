@@ -1,11 +1,13 @@
 namespace: blacktickets-prod
 
 image:
-  registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
+  registry: AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com
   tag: prod
   pullPolicy: IfNotPresent
 
 config:
+  awsAccountId: "AWS_ACCOUNT_ID"
+  roleNamePrefix: "blacktickets-prod"
   awsRegion: us-east-1
   dbHost: blacktickets-prod-postgres.cluster.local
   dbPort: "5432"
@@ -52,6 +54,7 @@ service:
 services:
   frontend:
     repository: blacktickets-frontend
+    tag: prod
     port: 80
     replicas: 2
     serviceAccount:
@@ -77,6 +80,7 @@ services:
       readOnlyRootFilesystem: false
   identity-service:
     repository: blacktickets-identity-service
+    tag: prod
     port: 4001
     replicas: 2
     serviceAccount:
@@ -104,9 +108,11 @@ services:
       readOnlyRootFilesystem: false
   event-service:
     repository: blacktickets-event-service
+    tag: prod
     port: 4002
     replicas: 2
     serviceAccount:
+      roleName: event-service-irsa
       annotations: {}
     env:
       DB_NAME: event_db
@@ -131,9 +137,11 @@ services:
       readOnlyRootFilesystem: false
   booking-service:
     repository: blacktickets-booking-service
+    tag: prod
     port: 4003
     replicas: 2
     serviceAccount:
+      roleName: booking-service-irsa
       annotations: {}
     env:
       DB_NAME: booking_db
@@ -158,9 +166,11 @@ services:
       readOnlyRootFilesystem: false
   chatbot-service:
     repository: blacktickets-chatbot-service
+    tag: prod
     port: 4004
     replicas: 2
     serviceAccount:
+      roleName: chatbot-service-irsa
       annotations: {}
     env: {}
     resources:

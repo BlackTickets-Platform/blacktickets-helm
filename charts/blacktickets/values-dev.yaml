@@ -1,18 +1,20 @@
 namespace: blacktickets-dev
-
+ 
 image:
-  registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
+  registry: AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com
   tag: dev
   pullPolicy: Always
 
 config:
+  awsAccountId: "AWS_ACCOUNT_ID"
+  roleNamePrefix: "blacktickets-dev"
   awsRegion: us-east-1
-  dbHost: blacktickets-dev-postgres.cqpkso2i290v.us-east-1.rds.amazonaws.com
+  dbHost: blacktickets-dev-postgres.DATABASE_IDENTIFIER.us-east-1.rds.amazonaws.com
   dbPort: "5432"
   dbUser: postgres
   dbSsl: "true"
   posterBucketName: blacktickets-dev-posters
-  posterCdnDomain: d3me96rgp01al.cloudfront.net
+  posterCdnDomain: CLOUDFRONT_DOMAIN
   eventServiceUrl: http://event-service:4002
   bookingServiceUrl: http://booking-service:4003
   bookingNotificationQueueUrl: ""
@@ -35,8 +37,8 @@ gateway:
   enabled: true
   createClass: true
   className: alb
-  hostname: blacktickets.ananthapps.site
-  certificateArn: arn:aws:acm:us-east-1:091869721157:certificate/baa04dab-a3bd-4383-889a-8927cbc9126a
+  hostname: hostname.placeholder
+  certificateArn: "ACM_CERTIFICATE_ARN"
   scheme: internet-facing
   annotations: {}
 
@@ -110,8 +112,7 @@ services:
     port: 4002
     replicas: 2
     serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-event-service-irsa
+      roleName: event-service-irsa
     env:
       DB_NAME: blacktickets
     resources:
@@ -139,8 +140,7 @@ services:
     port: 4003
     replicas: 2
     serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-booking-service-irsa
+      roleName: booking-service-irsa
     env:
       DB_NAME: blacktickets
     resources:
@@ -168,8 +168,7 @@ services:
     port: 4004
     replicas: 2
     serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-chatbot-service-irsa
+      roleName: chatbot-service-irsa
     env: {}
     resources:
       requests:
