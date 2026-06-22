@@ -53,7 +53,7 @@ services:
   frontend:
     repository: blacktickets-frontend
     port: 80
-    replicas: 1
+    replicas: 2
     serviceAccount:
       annotations: {}
     env: {}
@@ -78,7 +78,7 @@ services:
   identity-service:
     repository: blacktickets-identity-service
     port: 4001
-    replicas: 1
+    replicas: 2
     serviceAccount:
       annotations: {}
     env:
@@ -105,7 +105,7 @@ services:
   event-service:
     repository: blacktickets-event-service
     port: 4002
-    replicas: 1
+    replicas: 2
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-event-service-irsa
@@ -133,7 +133,7 @@ services:
   booking-service:
     repository: blacktickets-booking-service
     port: 4003
-    replicas: 1
+    replicas: 2
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-booking-service-irsa
@@ -161,7 +161,7 @@ services:
   chatbot-service:
     repository: blacktickets-chatbot-service
     port: 4004
-    replicas: 1
+    replicas: 2
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: arn:aws:iam::091869721157:role/blacktickets-dev-chatbot-service-irsa
