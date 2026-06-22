@@ -10,6 +10,10 @@ spec:
   parentRefs:
     - name: blacktickets
       sectionName: http
+    {{- if .Values.gateway.certificateArn }}
+    - name: blacktickets
+      sectionName: https
+    {{- end }}
   {{- with .Values.gateway.hostname }}
   hostnames:
     - {{ . | quote }}

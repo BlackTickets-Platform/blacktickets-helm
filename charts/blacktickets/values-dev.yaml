@@ -35,7 +35,8 @@ gateway:
   enabled: true
   createClass: true
   className: alb
-  hostname: ""
+  hostname: blacktickets.ananthapps.site
+  certificateArn: arn:aws:acm:us-east-1:091869721157:certificate/baa04dab-a3bd-4383-889a-8927cbc9126a
   scheme: internet-facing
   annotations: {}
 

@@ -36,6 +36,7 @@ gateway:
   createClass: true
   className: alb
   hostname: ""
+  certificateArn: ""
   scheme: internet-facing
   annotations: {}
 

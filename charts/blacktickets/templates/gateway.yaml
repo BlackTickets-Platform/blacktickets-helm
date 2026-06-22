@@ -30,6 +30,11 @@ metadata:
     {{- include "blacktickets.labels" . | nindent 4 }}
 spec:
   scheme: {{ .Values.gateway.scheme | quote }}
+  {{- if .Values.gateway.certificateArn }}
+  listenerConfigurations:
+    - protocolPort: HTTPS:443
+      defaultCertificate: {{ .Values.gateway.certificateArn | quote }}
+  {{- end }}
   defaultTargetGroupConfiguration:
     name: blacktickets
 ---
@@ -61,4 +66,15 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
+    {{- if .Values.gateway.certificateArn }}
+    - name: https
+      protocol: HTTPS
+      port: 443
+      {{- with .Values.gateway.hostname }}
+      hostname: {{ . | quote }}
+      {{- end }}
+      allowedRoutes:
+        namespaces:
+          from: Same
+    {{- end }}
 {{- end }}
