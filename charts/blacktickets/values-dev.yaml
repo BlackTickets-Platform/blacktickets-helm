@@ -2,7 +2,7 @@ namespace: blacktickets-dev
 
 image:
   registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
-  tag: dev
+  tag: prod
   pullPolicy: Always
 
 config:
