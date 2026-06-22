@@ -45,6 +45,9 @@ hpa:
   maxReplicas: 3
   targetCPUUtilizationPercentage: 70
 
+service:
+  type: ClusterIP
+
 services:
   frontend:
     repository: blacktickets-frontend

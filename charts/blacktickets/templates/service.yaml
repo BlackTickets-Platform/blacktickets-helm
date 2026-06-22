@@ -8,7 +8,7 @@ metadata:
   labels:
     {{- include "blacktickets.serviceLabels" (dict "root" $ "name" $name) | nindent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ $.Values.service.type | default "ClusterIP" }}
   selector:
     app.kubernetes.io/name: {{ $name }}
   ports:

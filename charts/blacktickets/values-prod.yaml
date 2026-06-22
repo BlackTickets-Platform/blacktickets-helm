@@ -45,6 +45,9 @@ hpa:
   maxReplicas: 6
   targetCPUUtilizationPercentage: 70
 
+service:
+  type: NodePort
+
 services:
   frontend:
     repository: blacktickets-frontend
