@@ -1,10 +1,8 @@
 namespace: blacktickets-prod
-
 image:
   registry: AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com
   tag: prod
   pullPolicy: IfNotPresent
-
 config:
   awsAccountId: "AWS_ACCOUNT_ID"
   roleNamePrefix: "blacktickets-prod"
@@ -18,11 +16,9 @@ config:
   eventServiceUrl: http://event-service:4002
   bookingServiceUrl: http://booking-service:4003
   bookingNotificationQueueUrl: ""
-
 secrets:
   name: blacktickets-secrets
   create: false
-
 externalSecrets:
   enabled: false
   createSecretStore: false
@@ -32,7 +28,6 @@ externalSecrets:
   refreshInterval: 1h
   serviceAccountName: external-secrets
   serviceAccountNamespace: external-secrets
-
 gateway:
   enabled: true
   createClass: false
@@ -41,16 +36,13 @@ gateway:
   certificateArn: ""
   scheme: internet-facing
   annotations: {}
-
 hpa:
   enabled: true
   minReplicas: 2
   maxReplicas: 6
   targetCPUUtilizationPercentage: 70
-
 service:
   type: NodePort
-
 services:
   frontend:
     repository: blacktickets-frontend
@@ -137,7 +129,7 @@ services:
       readOnlyRootFilesystem: false
   booking-service:
     repository: blacktickets-booking-service
-    tag: prod
+    tag: v0.0.1
     port: 4003
     replicas: 2
     serviceAccount:
