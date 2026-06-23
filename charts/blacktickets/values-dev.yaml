@@ -128,7 +128,7 @@ services:
       readOnlyRootFilesystem: false
   booking-service:
     repository: blacktickets-booking-service
-    tag: dev-10b8eb491c8ab0a5c71de48056ef2ed7d7e8135d
+    tag: dev-a2115469ea571b6c681367f5906876b5f57f6854
     port: 4003
     replicas: 2
     serviceAccount:
