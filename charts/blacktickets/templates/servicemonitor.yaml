@@ -1,0 +1,23 @@
+{{- if .Values.monitoring.serviceMonitors.enabled }}
+{{- range $name, $svc := .Values.services }}
+{{- if not (eq $name "frontend") }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $name }}
+  namespace: {{ $.Values.namespace | quote }}
+  labels:
+    {{- include "blacktickets.serviceLabels" (dict "root" $ "name" $name) | nindent 4 }}
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $name }}
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+{{- end }}
+{{- end }}
+{{- end }}

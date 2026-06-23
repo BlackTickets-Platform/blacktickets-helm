@@ -191,3 +191,10 @@ bedrock:
   region: "us-east-1"
   modelId: "amazon.nova-micro-v1:0"
 
+monitoring:
+  serviceMonitors:
+    enabled: true
+  prometheusRules:
+    enabled: false # disable rules for Phase 1 as requested: "After Prometheus targets and Grafana dashboards work, then add advanced/business dashboards"
+
+

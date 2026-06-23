@@ -196,3 +196,10 @@ bedrock:
   region: "us-east-1"
   modelId: "amazon.nova-micro-v1:0"
 
+monitoring:
+  serviceMonitors:
+    enabled: true
+  prometheusRules:
+    enabled: false
+
+
