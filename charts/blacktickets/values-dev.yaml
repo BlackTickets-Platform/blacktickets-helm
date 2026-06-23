@@ -55,7 +55,7 @@ services:
   frontend:
     repository: blacktickets-frontend
     tag: dev
-    port: 80
+    port: 8080
     replicas: 1
     serviceAccount:
       annotations: {}
@@ -75,7 +75,7 @@ services:
         path: /
         initialDelaySeconds: 30
     securityContext:
-      runAsNonRoot: false
+      runAsNonRoot: true
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: false
   identity-service:
