@@ -1,10 +1,8 @@
 namespace: blacktickets-dev
- 
 image:
   registry: AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com
   tag: dev
   pullPolicy: Always
-
 config:
   awsAccountId: "AWS_ACCOUNT_ID"
   roleNamePrefix: "blacktickets-dev"
@@ -18,11 +16,9 @@ config:
   eventServiceUrl: http://event-service:4002
   bookingServiceUrl: http://booking-service:4003
   bookingNotificationQueueUrl: ""
-
 secrets:
   name: blacktickets-app-secrets
   create: false
-
 externalSecrets:
   enabled: true
   createSecretStore: true
@@ -32,7 +28,6 @@ externalSecrets:
   refreshInterval: 1h
   serviceAccountName: external-secrets
   serviceAccountNamespace: external-secrets
-
 gateway:
   enabled: true
   createClass: true
@@ -41,19 +36,15 @@ gateway:
   certificateArn: "ACM_CERTIFICATE_ARN"
   scheme: internet-facing
   annotations: {}
-
 hpa:
   enabled: true
   minReplicas: 1
   maxReplicas: 3
   targetCPUUtilizationPercentage: 70
-
 service:
   type: NodePort
-
 services:
   frontend:
-    repository: blacktickets-frontend
     tag: dev
     port: 8080
     replicas: 1
@@ -80,7 +71,7 @@ services:
       readOnlyRootFilesystem: false
   identity-service:
     repository: blacktickets-identity-service
-    tag: dev
+    tag: dev-a2115469ea571b6c681367f5906876b5f57f6854
     port: 4001
     replicas: 2
     serviceAccount:
@@ -108,7 +99,7 @@ services:
       readOnlyRootFilesystem: false
   event-service:
     repository: blacktickets-event-service
-    tag: dev
+    tag: dev-a2115469ea571b6c681367f5906876b5f57f6854
     port: 4002
     replicas: 1
     serviceAccount:
@@ -136,7 +127,7 @@ services:
       readOnlyRootFilesystem: false
   booking-service:
     repository: blacktickets-booking-service
-    tag: dev
+    tag: dev-a2115469ea571b6c681367f5906876b5f57f6854
     port: 4003
     replicas: 2
     serviceAccount:
@@ -164,7 +155,7 @@ services:
       readOnlyRootFilesystem: false
   chatbot-service:
     repository: blacktickets-chatbot-service
-    tag: dev
+    tag: dev-a2115469ea571b6c681367f5906876b5f57f6854
     port: 4004
     replicas: 1
     serviceAccount:
@@ -189,17 +180,13 @@ services:
       runAsUser: 1000
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: false
-
 bedrock:
   enabled: true
   roleArn: ""
   region: "us-east-1"
   modelId: "amazon.nova-micro-v1:0"
-
 monitoring:
   serviceMonitors:
     enabled: true
   prometheusRules:
     enabled: false
-
-
