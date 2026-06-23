@@ -56,7 +56,7 @@ services:
     repository: blacktickets-frontend
     tag: dev
     port: 80
-    replicas: 2
+    replicas: 1
     serviceAccount:
       annotations: {}
     env: {}
@@ -82,7 +82,7 @@ services:
     repository: blacktickets-identity-service
     tag: dev
     port: 4001
-    replicas: 2
+    replicas: 1
     serviceAccount:
       annotations: {}
     env:
@@ -110,7 +110,7 @@ services:
     repository: blacktickets-event-service
     tag: dev
     port: 4002
-    replicas: 2
+    replicas: 1
     serviceAccount:
       roleName: event-service-irsa
     env:
@@ -138,7 +138,7 @@ services:
     repository: blacktickets-booking-service
     tag: dev
     port: 4003
-    replicas: 2
+    replicas: 1
     serviceAccount:
       roleName: booking-service-irsa
     env:
@@ -166,7 +166,7 @@ services:
     repository: blacktickets-chatbot-service
     tag: dev
     port: 4004
-    replicas: 2
+    replicas: 1
     serviceAccount:
       roleName: chatbot-service-irsa
     env: {}
