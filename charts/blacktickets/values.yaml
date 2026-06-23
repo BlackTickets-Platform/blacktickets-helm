@@ -184,3 +184,10 @@ services:
       runAsUser: 1000
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: false
+
+bedrock:
+  enabled: true
+  roleArn: ""
+  region: "us-east-1"
+  modelId: "amazon.nova-micro-v1:0"
+

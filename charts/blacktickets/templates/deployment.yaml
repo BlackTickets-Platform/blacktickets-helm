@@ -34,9 +34,20 @@ spec:
             - secretRef:
                 name: {{ $.Values.secrets.name }}
             {{- end }}
-          {{- with $svc.env }}
+          {{- $hasEnv := or (and (eq $name "chatbot-service") $.Values.bedrock.enabled) $svc.env }}
+          {{- if $hasEnv }}
           env:
-            {{- range $key, $value := . }}
+            {{- if and (eq $name "chatbot-service") $.Values.bedrock.enabled }}
+            {{- if $.Values.bedrock.roleArn }}
+            - name: BEDROCK_ROLE_ARN
+              value: {{ $.Values.bedrock.roleArn | quote }}
+            {{- end }}
+            - name: BEDROCK_REGION
+              value: {{ $.Values.bedrock.region | quote }}
+            - name: BEDROCK_MODEL_ID
+              value: {{ $.Values.bedrock.modelId | quote }}
+            {{- end }}
+            {{- range $key, $value := $svc.env }}
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
