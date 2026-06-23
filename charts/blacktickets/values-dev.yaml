@@ -74,7 +74,7 @@ services:
     repository: blacktickets-identity-service
     tag: dev-10b8eb491c8ab0a5c71de48056ef2ed7d7e8135d
     port: 4001
-    replicas: 1
+    replicas: 2
     serviceAccount:
       annotations: {}
     env:
@@ -88,10 +88,10 @@ services:
         memory: 256Mi
     probes:
       readiness:
-        path: /health
+        path: /ready
         initialDelaySeconds: 10
       liveness:
-        path: /health
+        path: /healthz
         initialDelaySeconds: 30
     securityContext:
       runAsNonRoot: true
@@ -116,10 +116,10 @@ services:
         memory: 256Mi
     probes:
       readiness:
-        path: /health
+        path: /ready
         initialDelaySeconds: 10
       liveness:
-        path: /health
+        path: /healthz
         initialDelaySeconds: 30
     securityContext:
       runAsNonRoot: true
@@ -130,7 +130,7 @@ services:
     repository: blacktickets-booking-service
     tag: dev-10b8eb491c8ab0a5c71de48056ef2ed7d7e8135d
     port: 4003
-    replicas: 1
+    replicas: 2
     serviceAccount:
       roleName: booking-service-irsa
     env:
@@ -144,10 +144,10 @@ services:
         memory: 256Mi
     probes:
       readiness:
-        path: /health
+        path: /ready
         initialDelaySeconds: 10
       liveness:
-        path: /health
+        path: /healthz
         initialDelaySeconds: 30
     securityContext:
       runAsNonRoot: true
@@ -171,10 +171,10 @@ services:
         memory: 256Mi
     probes:
       readiness:
-        path: /health
+        path: /ready
         initialDelaySeconds: 10
       liveness:
-        path: /health
+        path: /healthz
         initialDelaySeconds: 30
     securityContext:
       runAsNonRoot: true
