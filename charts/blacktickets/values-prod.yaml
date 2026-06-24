@@ -165,8 +165,6 @@ services:
       roleName: chatbot-service-irsa
       annotations: {}
     env:
-
-
     resources:
       requests:
         cpu: 150m
@@ -186,6 +184,5 @@ services:
       runAsUser: 1000
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: false
-
 networkPolicy:
   enabled: true
