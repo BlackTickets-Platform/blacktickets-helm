@@ -20,8 +20,6 @@ spec:
     spec:
       serviceAccountName: {{ $name }}
       automountServiceAccountToken: true
-      imagePullSecrets:
-        - name: ecr-cred
       containers:
         - name: {{ $name }}
           image: "{{ $.Values.image.registry }}/{{ $svc.repository }}:{{ $svc.tag | default $.Values.image.tag }}"
