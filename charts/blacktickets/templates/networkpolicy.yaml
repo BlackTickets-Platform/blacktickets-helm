@@ -46,7 +46,7 @@ spec:
   ingress:
     - ports:
         - protocol: TCP
-          port: {{ .Values.services.identity-service.port }}
+          port: {{ (index .Values.services "identity-service").port }}
       from:
         - podSelector:
             matchLabels:
@@ -74,7 +74,7 @@ spec:
   ingress:
     - ports:
         - protocol: TCP
-          port: {{ .Values.services.event-service.port }}
+          port: {{ (index .Values.services "event-service").port }}
       from:
         - podSelector:
             matchLabels:
@@ -102,7 +102,7 @@ spec:
   ingress:
     - ports:
         - protocol: TCP
-          port: {{ .Values.services.booking-service.port }}
+          port: {{ (index .Values.services "booking-service").port }}
       from:
         - podSelector:
             matchLabels:
@@ -130,7 +130,7 @@ spec:
   ingress:
     - ports:
         - protocol: TCP
-          port: {{ .Values.services.chatbot-service.port }}
+          port: {{ (index .Values.services "chatbot-service").port }}
       from:
         - podSelector:
             matchLabels:
