@@ -190,3 +190,6 @@ monitoring:
     enabled: true
   prometheusRules:
     enabled: false
+
+networkPolicy:
+  enabled: true

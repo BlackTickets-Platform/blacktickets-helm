@@ -184,3 +184,6 @@ services:
       runAsUser: 1000
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: false
+
+networkPolicy:
+  enabled: true

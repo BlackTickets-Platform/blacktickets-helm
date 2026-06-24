@@ -1,0 +1,141 @@
+{{- if .Values.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-ingress
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: frontend
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: {{ .Values.services.frontend.port }}
+      from: [] # Allow all ingress for ALB compatibility
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: identity-service-ingress
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: identity-service
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: {{ .Values.services.identity-service.port }}
+      from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: frontend
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: chatbot-service
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: event-service-ingress
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: event-service
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: {{ .Values.services.event-service.port }}
+      from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: frontend
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: chatbot-service
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: booking-service-ingress
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: booking-service
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: {{ .Values.services.booking-service.port }}
+      from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: frontend
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: chatbot-service
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: chatbot-service-ingress
+  namespace: {{ .Values.namespace | quote }}
+  labels:
+    app.kubernetes.io/part-of: blacktickets
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: chatbot-service
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: {{ .Values.services.chatbot-service.port }}
+      from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: frontend
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+{{- end }}

@@ -197,4 +197,7 @@ monitoring:
   prometheusRules:
     enabled: false # disable rules for Phase 1 as requested: "After Prometheus targets and Grafana dashboards work, then add advanced/business dashboards"
 
+networkPolicy:
+  enabled: true
+
 
