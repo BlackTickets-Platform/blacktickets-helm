@@ -1,7 +1,7 @@
 namespace: blacktickets-prod
 image:
-  registry: AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com
-  tag: prod
+  registry: 091869721157.dkr.ecr.us-east-1.amazonaws.com
+  tag: v0.1.0
   pullPolicy: IfNotPresent
 config:
   awsAccountId: "AWS_ACCOUNT_ID"
@@ -20,7 +20,7 @@ secrets:
   name: blacktickets-secrets
   create: false
 externalSecrets:
-  enabled: false
+  enabled: true
   createSecretStore: false
   secretStoreName: aws-secrets-manager
   secretStoreKind: ClusterSecretStore
@@ -164,7 +164,9 @@ services:
     serviceAccount:
       roleName: chatbot-service-irsa
       annotations: {}
-    env: {}
+    env:
+
+
     resources:
       requests:
         cpu: 150m

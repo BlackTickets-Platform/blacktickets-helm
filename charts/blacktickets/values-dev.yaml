@@ -183,6 +183,7 @@ services:
 bedrock:
   enabled: true
   roleArn: ""
+  assumeRoleArn: "arn:aws:iam::091869721157:role/BlackticketsBedrockCrossAccountRole"
   region: "us-east-1"
   modelId: "amazon.nova-micro-v1:0"
 monitoring:

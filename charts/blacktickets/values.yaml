@@ -24,7 +24,7 @@ secrets:
   create: false
 
 externalSecrets:
-  enabled: false
+  enabled: true
   createSecretStore: false
   secretStoreName: aws-secrets-manager
   secretStoreKind: ClusterSecretStore
@@ -188,6 +188,7 @@ services:
 bedrock:
   enabled: true
   roleArn: ""
+  roleArnSecret: "bedrock-role-arn"
   region: "us-east-1"
   modelId: "amazon.nova-micro-v1:0"
 
