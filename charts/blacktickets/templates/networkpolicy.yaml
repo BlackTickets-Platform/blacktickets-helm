@@ -82,6 +82,9 @@ spec:
         - podSelector:
             matchLabels:
               app.kubernetes.io/name: chatbot-service
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: booking-service
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: monitoring
