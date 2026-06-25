@@ -6,3 +6,4 @@
 charts/**/charts/
 charts/**/tmpcharts/
 *.tgz
+app-config.json
