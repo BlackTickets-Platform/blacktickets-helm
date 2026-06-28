@@ -99,7 +99,7 @@ services:
       readOnlyRootFilesystem: false
   event-service:
     repository: blacktickets-event-service
-    tag: dev-250fe9e41d128c553258cf543523f4547394dfb4
+    tag: dev-54bc820c12560ac8b573b57f96c781ed59f1071c
     port: 4002
     replicas: 1
     serviceAccount:
