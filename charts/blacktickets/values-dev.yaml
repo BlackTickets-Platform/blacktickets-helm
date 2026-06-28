@@ -155,7 +155,7 @@ services:
       readOnlyRootFilesystem: false
   chatbot-service:
     repository: blacktickets-chatbot-service
-    tag: dev-a2115469ea571b6c681367f5906876b5f57f6854
+    tag: dev-250fe9e41d128c553258cf543523f4547394dfb4
     port: 4004
     replicas: 1
     serviceAccount:
@@ -191,6 +191,5 @@ monitoring:
     enabled: true
   prometheusRules:
     enabled: false
-
 networkPolicy:
   enabled: true
