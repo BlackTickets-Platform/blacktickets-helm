@@ -45,7 +45,7 @@ service:
   type: NodePort
 services:
   frontend:
-    tag: dev
+    tag: dev-250fe9e41d128c553258cf543523f4547394dfb4
     port: 8080
     replicas: 1
     serviceAccount:
