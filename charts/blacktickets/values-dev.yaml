@@ -71,7 +71,7 @@ services:
       readOnlyRootFilesystem: false
   identity-service:
     repository: blacktickets-identity-service
-    tag: dev-a2115469ea571b6c681367f5906876b5f57f6854
+    tag: dev-250fe9e41d128c553258cf543523f4547394dfb4
     port: 4001
     replicas: 2
     serviceAccount:
