@@ -155,7 +155,7 @@ services:
       readOnlyRootFilesystem: false
   chatbot-service:
     repository: blacktickets-chatbot-service
-    tag: dev-54bc820c12560ac8b573b57f96c781ed59f1071c
+    tag: dev-8d1bd9487101857a7ea14342ffe53811b58793f1
     port: 4004
     replicas: 1
     serviceAccount:
