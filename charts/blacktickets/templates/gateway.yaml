@@ -35,6 +35,10 @@ spec:
     - protocolPort: HTTPS:443
       defaultCertificate: {{ .Values.gateway.certificateArn | quote }}
   {{- end }}
+  {{- if .Values.gateway.wafv2Arn }}
+  wafV2:
+    webACL: {{ .Values.gateway.wafv2Arn | quote }}
+  {{- end }}
   defaultTargetGroupConfiguration:
     name: blacktickets
 ---
