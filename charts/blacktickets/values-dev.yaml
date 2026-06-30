@@ -45,7 +45,7 @@ service:
   type: NodePort
 services:
   frontend:
-    tag: dev-8d1bd9487101857a7ea14342ffe53811b58793f1
+    tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
     port: 8080
     replicas: 1
     serviceAccount:
@@ -71,7 +71,7 @@ services:
       readOnlyRootFilesystem: false
   identity-service:
     repository: blacktickets-identity-service
-    tag: dev-8d1bd9487101857a7ea14342ffe53811b58793f1
+    tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
     port: 4001
     replicas: 2
     serviceAccount:
@@ -99,7 +99,7 @@ services:
       readOnlyRootFilesystem: false
   event-service:
     repository: blacktickets-event-service
-    tag: dev-8d1bd9487101857a7ea14342ffe53811b58793f1
+    tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
     port: 4002
     replicas: 1
     serviceAccount:
@@ -127,7 +127,7 @@ services:
       readOnlyRootFilesystem: false
   booking-service:
     repository: blacktickets-booking-service
-    tag: dev-8d1bd9487101857a7ea14342ffe53811b58793f1
+    tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
     port: 4003
     replicas: 2
     serviceAccount:
@@ -155,7 +155,7 @@ services:
       readOnlyRootFilesystem: false
   chatbot-service:
     repository: blacktickets-chatbot-service
-    tag: dev-8d1bd9487101857a7ea14342ffe53811b58793f1
+    tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
     port: 4004
     replicas: 1
     serviceAccount:
