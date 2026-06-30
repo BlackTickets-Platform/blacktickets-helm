@@ -42,7 +42,7 @@ hpa:
   maxReplicas: 3
   targetCPUUtilizationPercentage: 70
 service:
-  type: NodePort
+  type: ClusterIP
 services:
   frontend:
     tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
