@@ -48,7 +48,7 @@ services:
     type: NodePort
     tag: dev-62cd465679831348a077577d843ad3209f70b36b
     port: 8080
-    replicas: 1
+    replicas: 2
     serviceAccount:
       annotations: {}
     env: {}
@@ -102,7 +102,7 @@ services:
     repository: blacktickets-event-service
     tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
     port: 4002
-    replicas: 1
+    replicas: 2
     serviceAccount:
       roleName: event-service-irsa
     env:
