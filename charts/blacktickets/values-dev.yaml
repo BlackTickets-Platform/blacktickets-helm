@@ -45,6 +45,7 @@ service:
   type: ClusterIP
 services:
   frontend:
+    type: NodePort
     tag: dev-4336ea937d7395e4751d6a4e25bc14ec58dc7d4c
     port: 8080
     replicas: 1
