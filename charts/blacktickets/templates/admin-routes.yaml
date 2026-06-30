@@ -2,7 +2,7 @@
 apiVersion: gateway.k8s.aws/v1beta1
 kind: TargetGroupConfiguration
 metadata:
-  name: blacktickets
+  name: argocd-server
   namespace: argocd
   labels:
     {{- include "blacktickets.labels" . | nindent 4 }}
@@ -13,7 +13,18 @@ spec:
 apiVersion: gateway.k8s.aws/v1beta1
 kind: TargetGroupConfiguration
 metadata:
-  name: blacktickets
+  name: prometheus-stack-grafana
+  namespace: monitoring
+  labels:
+    {{- include "blacktickets.labels" . | nindent 4 }}
+spec:
+  defaultConfiguration:
+    targetType: ip
+---
+apiVersion: gateway.k8s.aws/v1beta1
+kind: TargetGroupConfiguration
+metadata:
+  name: prometheus-stack-kube-prom-prometheus
   namespace: monitoring
   labels:
     {{- include "blacktickets.labels" . | nindent 4 }}
